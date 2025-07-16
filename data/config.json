@@ -15,11 +15,11 @@
       "description": "Custo do Aço Carbono por quilograma (R$/kg)."
     },
     "valor_eucalipto_un": {
-      "value": 200,
+      "value": 150,
       "description": "Custo médio da Tora de Eucalipto (unidade)."
     },
     "valor_braco_eucalipto_un": {
-      "value": 150,
+      "value": 155,
       "description": "Custo do Braço de Eucalipto por unidade (R$)."
     },
     "valor_longarina_eucalipto_un": {

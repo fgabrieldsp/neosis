@@ -35,7 +35,7 @@
         "components_per_module": [
           { "partId": "longarina_eucalipto_5m", "quantity": 2 },
           { "partId": "separador_eucalipto_padrao", "quantity": 1 },
-          { "partId": "mao_francesa_eucalipto", "quantity": 4 }
+          { "partId": "mao_francesa_eucalipto", "quantity": 14 }
         ]
       }
     }

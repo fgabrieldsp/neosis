@@ -81,3 +81,44 @@ A nova arquitetura lógica se baseia em dois pilares:
 2.  **Custeio Paramétrico:** Os custos foram totalmente desacoplados da lógica de contagem. O arquivo `config.json` foi transformado em um "Painel de Parâmetros" central, onde custos de materiais (R$/kg, R$/m²), serviços e variáveis de negócio podem ser ajustados sem tocar em uma linha de código do motor de cálculo.
 
 Esta nova arquitetura resulta em um sistema mais elegante, preciso e exponencialmente mais flexível, pronto para acomodar novas regras e cenários de engenharia de forma modular.
+
+# Dinâmica do Sistema e Manual de Uso
+
+## Dinâmica do Sistema
+O NeoSIS opera como uma plataforma de orçamentação paramétrica e simulação de cenários para projetos modulares. O sistema é composto por três pilares principais:
+
+- **Catálogo de Peças (`catalog.json`)**: Contém todos os componentes físicos e suas propriedades, incluindo perfis metálicos, pesos e receitas de fabricação.
+- **Plantas/Blueprints (`blueprints.json`)**: Define as regras de decomposição dos projetos em módulos base e as receitas de montagem.
+- **Painel de Parâmetros (`config.json`)**: Centraliza todos os custos (materiais, serviços, variáveis de negócio) e permite ajustes dinâmicos sem necessidade de alterar o código-fonte.
+
+O backend expõe uma API que recebe um projeto (lista de blocos), processa a decomposição, calcula custos e gera relatórios detalhados de materiais e insumos. O frontend consome essa API, permitindo ao usuário simular diferentes cenários em tempo real, ajustar parâmetros e visualizar o impacto de cada decisão.
+
+## Painel de Parâmetros
+O painel de parâmetros é o coração da flexibilidade do NeoSIS. Ele permite:
+- Alterar preços de materiais (ex: aço, concreto, pintura) e serviços (ex: montagem, usinagem) diretamente no arquivo `config.json`.
+- Ajustar variáveis de negócio, como margens, impostos e coeficientes de desperdício.
+- Simular cenários alterando parâmetros e visualizando instantaneamente o impacto no orçamento e na lista de insumos.
+
+Todas as alterações são refletidas imediatamente nos cálculos, sem necessidade de reiniciar o sistema ou modificar o código.
+
+## Mini Manual para o Futuro README
+
+### Como usar o NeoSIS
+1. **Configuração Inicial:**
+   - Edite os arquivos em `data/` para cadastrar novos componentes, receitas ou ajustar parâmetros de custo.
+2. **Execução:**
+   - Inicie o backend (`node backend/index.js`).
+   - Abra o `frontend/index.html` em seu navegador.
+3. **Simulação:**
+   - Use o painel de parâmetros para ajustar custos e variáveis.
+   - Insira os dados do projeto e visualize o orçamento detalhado e o relatório de insumos.
+4. **Personalização:**
+   - Para novas regras de decomposição ou tipos de módulos, edite `blueprints.json`.
+   - Para novos perfis ou componentes, edite `catalog.json`.
+
+### Recomendações
+- Sempre mantenha um backup dos arquivos de dados antes de grandes alterações.
+- Consulte o arquivo `algoritmomestre.md` para entender a lógica de decomposição e custeio.
+- Use o painel de parâmetros para simulações rápidas e análise de sensibilidade de custos.
+
+---

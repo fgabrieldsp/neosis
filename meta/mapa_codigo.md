@@ -2,6 +2,7 @@ Estrutura de Diretórios e Arquivos
 /
 ├── backend/
 │   ├── services/
+│   │   ├── AbstractQuotationService.js  # Classe abstrata base para serviços de cotação (define interface e métodos comuns).
 │   │   └── quotationService.js  # O motor de decomposição e custeio paramétrico.
 │   └── index.js                # Ponto de entrada do backend (servidor Node.js com Express).
 │
