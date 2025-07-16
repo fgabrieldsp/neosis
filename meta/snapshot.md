@@ -1,5 +1,11 @@
 # 📸 snapshot.md — Estado Atual do Projeto
 
+
+## 🚀 Estado do Projeto (2025-07-16, 12:58:00)
+- **Fase:** Maturidade do Motor de Cálculo e Engenharia de Eucalipto (v6.0.0).
+- **Última Ação:** Implementação bem-sucedida do relatório de engenharia para eucalipto e refatoração completa do cálculo de insumos de tratamento (Osmocolor) para um modelo baseado em rendimento.
+- **Estado Atual:** O NeoSIS atingiu a sua maturidade como uma plataforma de engenharia de orçamentos de alta precisão. A lógica de negócio está robusta, com o sistema capaz de lidar com as nuances de múltiplos tipos de materiais (aço e madeira) de forma inteligente e granular. A implementação final da engenharia de eucalipto, especialmente a transição para um cálculo de insumos por rendimento, solidifica o software como uma ferramenta profissional, confiável e pronta para produção. O ecossistema está totalmente sincronizado e o projeto encontra-se num estado estável e completo em relação ao escopo definido.
+
 ---
 
 ## 🚀 Estado do Projeto (2025-07-14, 16:26:00)

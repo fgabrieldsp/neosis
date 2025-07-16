@@ -1,4 +1,12 @@
 # 🕓 controle_versao.md — Linha do Tempo
+## 🔖 v6.0.0 — 2025-07-16
+- **Implementação da Engenharia de Eucalipto:**
+    - **Feature:** O sistema agora gera um relatório de engenharia completo para estruturas de eucalipto, incluindo indicadores físicos (peso total, área de superfície) e um relatório detalhado de insumos para tratamento.
+    - **Refatoração:** A lógica de cálculo de custos de tratamento (Osmocolor) foi completamente refatorada para operar com base em rendimento (m²/galão), número de demãos e custo por galão, espelhando a precisão já existente no cálculo de tintas para aço.
+    - **Refatoração:** O custo do tratamento foi corretamente desmembrado em custo de material (galões de Osmocolor) e custo de serviço (mão de obra para aplicação), proporcionando uma análise de custos mais granular e precisa.
+- **Correção de Lógica de Negócio (Contagem de Peças):**
+    - **Correção Crítica:** A lógica de contagem de mãos francesas para o modelo de eucalipto 4P foi corrigida para refletir a regra de montagem real, diferenciando pilares de extremidade e pilares intermediários.
+    - **Robustez:** O sistema de regras nos blueprints foi aprimorado para suportar lógicas de contagem mais complexas e específicas por modelo.
 
 ## 🔖 v5.3.0 — 2025-07-14
 - **Implementação da Seleção Dinâmica de Perfis:**

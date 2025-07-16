@@ -28,14 +28,14 @@
     "structure_type": "reto",
     "pillar_rule": "2*N+2",
     "arm_rule": "N+1",
+    "mao_francesa_rule": "eucalipto_4p_LL",
+    "separador_rule": "N",
     "available_modules": [2],
     "base_modules": {
       "modulo_2_vagas": {
         "vaga_count": 2,
         "components_per_module": [
-          { "partId": "longarina_eucalipto_5m", "quantity": 2 },
-          { "partId": "separador_eucalipto_padrao", "quantity": 1 },
-          { "partId": "mao_francesa_eucalipto", "quantity": 14 }
+          { "partId": "longarina_eucalipto_5m", "quantity": 2 }
         ]
       }
     }

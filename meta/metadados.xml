@@ -1,12 +1,12 @@
 <metadados>
     <projeto>NeoSIS - Sistema Integrado de Engenharia e Orçamentos</projeto>
-    <versao>5.3.0</versao>
-    <descricao>Software especialista para engenharia e orçamentos. A versão 5.3 introduz a seleção dinâmica de perfis metálicos por projeto, além de custos de serviço mais detalhados como a usinagem. O sistema permite simulação em tempo real através de um painel de parâmetros integrado e oferece relatórios de engenharia completos.</descricao>
+    <versao>6.0.0</versao>
+    <descricao>Software especialista para engenharia e orçamentos. A versao 6.0 introduz um relatorio de engenharia completo para estruturas de eucalipto e implementa uma logica de calculo de insumos por rendimento, conferindo ao sistema um nivel de precisao profissional.</descricao>
     <regras_operacionais>
-        <regra>Dados (catálogo, blueprints, config) devem residir no diretório /data.</regra>
-        <regra>A lógica de negócio deve ser encapsulada em serviços no diretório /backend/services.</regra>
-        <regra>A interface do usuário é responsabilidade do diretório /frontend.</regra>
-        <regra>O servidor de API reside em /backend/index.js e é o ponto de contato com o frontend, que deve ser servido estaticamente pelo mesmo servidor.</regra>
-        <regra>O ecossistema de metadados deve ser atualizado após marcos significativos de desenvolvimento.</regra>
+        <regra>Dados (catalogo, blueprints, config) devem residir no diretorio /data.</regra>
+        <regra>A logica de negocio deve ser encapsulada em servicos no diretorio /backend/services.</regra>
+        <regra>A interface do usuario e responsabilidade do diretorio /frontend.</regra>
+        <regra>O servidor de API reside em /backend/index.js e e o ponto de contato com o frontend, que deve ser servido estaticamente pelo mesmo servidor.</regra>
+        <regra>O ecossistema de metadados deve ser atualizado apos marcos significativos de desenvolvimento.</regra>
     </regras_operacionais>
 </metadados>
