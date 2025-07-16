@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoSIS - Sistema de Engenharia e Orçamentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-braces-asterisk"></i> NeoSIS</a>
+            <div class="d-flex">
+                <button class="btn btn-warning me-2" id="btn-toggle-panel"><i class="bi bi-sliders"></i> Parâmetros</button>
+                <button class="btn btn-outline-secondary me-2" id="btnImportar"><i class="bi bi-upload"></i> Importar Projeto</button>
+                <button class="btn btn-outline-light" id="btnExportar"><i class="bi bi-download"></i> Exportar Projeto</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid mt-4">
+        <div class="row g-4">
+            <aside class="col-lg-3">
+                <div class="card shadow-sm">
+                    <div class="card-header fs-5"><i class="bi bi-file-earmark-plus"></i> Controle do Projeto</div>
+                    <div class="card-body">
+                        <h6 class="card-title">Adicionar Bloco</h6>
+                        <form id="formAdicionarBloco">
+                            <div class="mb-3">
+                                <label for="vagas" class="form-label">Número de Vagas</label>
+                                <input type="number" class="form-control" id="vagas" value="1" min="1" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estrutura" class="form-label">Modelo Estrutural</label>
+                                <select class="form-select" id="estrutura" required></select>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100" id="btnAdicionarBloco"><i class="bi bi-plus-lg"></i> Adicionar ao Orçamento</button>
+                        </form>
+                    </div>
+
+                    <div class="accordion accordion-flush" id="accordion-config">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-profiles" aria-expanded="false" aria-controls="collapse-profiles">
+                            <i class="bi bi-gear-wide-connected me-2"></i> Configuração de Perfis do Projeto
+                          </button>
+                        </h2>
+                        <div id="collapse-profiles" class="accordion-collapse collapse" data-bs-parent="#accordion-config">
+                          <div class="accordion-body" id="profile-config-body">
+                            <p class="text-muted small">Adicione componentes metálicos ao projeto para configurar seus perfis.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header"><i class="bi bi-list-task"></i> Blocos do Orçamento</div>
+                    <ul class="list-group list-group-flush" id="listaBlocos">
+                        <li class="list-group-item text-muted" id="placeholderLista">Nenhum bloco adicionado.</li>
+                    </ul>
+                </div>
+            </aside>
+            <section class="col-lg-9">
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3"><div class="card text-center text-bg-secondary shadow-sm"><div class="card-body"><h6 class="card-subtitle mb-2">Total de Vagas</h6><h4 class="card-title" id="totalVagas">0</h4></div></div></div>
+                    <div class="col-md-3"><div class="card text-center shadow-sm"><div class="card-body"><h6 class="card-subtitle mb-2">Custo / Vaga</h6><h4 class="card-title" id="custoPorVaga">R$ 0,00</h4></div></div></div>
+                    <div class="col-md-3"><div class="card text-center shadow-sm"><div class="card-body"><h6 class="card-subtitle mb-2">Preço / m²</h6><h4 class="card-title" id="precoPorM2">R$ 0,00</h4></div></div></div>
+                    <div class="col-md-3"><div class="card text-center text-bg-success shadow-sm"><div class="card-body"><h6 class="card-subtitle mb-2">Total Final</h6><h4 class="card-title" id="totalFinal">R$ 0,00</h4></div></div></div>
+                </div>
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="abasResultados" role="tablist">
+                            <li class="nav-item" role="presentation"><button class="nav-link active" id="aba-resumo" data-bs-toggle="tab" data-bs-target="#resultadoResumo" type="button" role="tab"><i class="bi bi-pie-chart-fill"></i> Resumo</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" id="aba-materiais" data-bs-toggle="tab" data-bs-target="#resultadoMateriais" type="button" role="tab"><i class="bi bi-box-seam"></i> Lista de Materiais</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" id="aba-custos" data-bs-toggle="tab" data-bs-target="#resultadoCustos" type="button" role="tab"><i class="bi bi-cash-stack"></i> Análise de Custos</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" id="aba-engenharia" data-bs-toggle="tab" data-bs-target="#resultadoEngenharia" type="button" role="tab"><i class="bi bi-rulers"></i> Relatório de Engenharia</button></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="conteudoAbas">
+                            <div class="tab-pane fade show active" id="resultadoResumo" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="resultadoMateriais" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="resultadoCustos" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="resultadoEngenharia" role="tabpanel"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="simulation-panel" class="shadow-lg">
+        <div class="panel-header">
+            <h5><i class="bi bi-sliders"></i> Parâmetros e Simulação</h5>
+            <button id="btn-close-panel" class="btn-close"></button>
+        </div>
+        <div class="panel-body" id="panel-form-container"></div>
+        <div class="panel-footer">
+            <button class="btn btn-primary w-100 mb-2" id="btn-recalculate"><i class="bi bi-calculator-fill"></i> Recalcular Simulação</button>
+            <button class="btn btn-outline-success w-100" id="btn-save-defaults"><i class="bi bi-check-circle"></i> Salvar como Padrão</button>
+        </div>
+    </div>
+    <div id="panel-overlay"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

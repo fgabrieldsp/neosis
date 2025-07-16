@@ -1,0 +1,120 @@
+{
+  "financials": {
+    "bdi_percent": {
+      "value": 30,
+      "description": "Percentual do Benefício e Despesas Indiretas."
+    },
+    "tax_percent": {
+      "value": 12,
+      "description": "Percentual de impostos para NF."
+    }
+  },
+  "material_costs": {
+    "valor_aco_kg": {
+      "value": 11,
+      "description": "Custo do Aço Carbono por quilograma (R$/kg)."
+    },
+    "valor_eucalipto_un": {
+      "value": 200,
+      "description": "Custo médio da Tora de Eucalipto (unidade)."
+    },
+    "valor_braco_eucalipto_un": {
+      "value": 150,
+      "description": "Custo do Braço de Eucalipto por unidade (R$)."
+    },
+    "valor_longarina_eucalipto_un": {
+      "value": 200,
+      "description": "Custo da Longarina de Eucalipto por unidade (R$)."
+    },
+    "valor_tela_m2": {
+      "value": 27,
+      "description": "Custo da Tela de Sombreamento por metro quadrado (R$/m²)."
+    },
+    "valor_kit_fixacao_un": {
+      "value": 4.5,
+      "description": "Custo do kit de fixação (parafuso, porca, arruela)."
+    }
+  },
+  "service_costs": {
+    "mao_de_obra_pintura_m2": {
+      "value": 10,
+      "description": "Preço da MÃO DE OBRA de Pintura por m²."
+    },
+    "custo_servico_fundacao_un": {
+      "value": 200,
+      "description": "Custo do serviço de instalação por base de fundação."
+    },
+    "custo_usinagem_kg": {
+      "value": 2,
+      "description": "Custo de usinagem e preparação por quilo de aço (R$/kg)."
+    },
+    "preco_galvanizacao_fogo_kg": {
+      "value": 10,
+      "description": "Preço do serviço de Galvanização a Fogo por quilo de aço (R$/kg)."
+    },
+    "preco_osmocolor_m2": {
+      "value": 45,
+      "description": "Preço do tratamento com Osmocolor por m²."
+    },
+    "paint_calculation_params": {
+      "primer_yield_m2_per_liter": {
+        "value": 5,
+        "description": "Rendimento do Primer (m²/L)."
+      },
+      "primer_price_per_liter": {
+        "value": 100,
+        "description": "Preço do Primer por Litro (R$/L)."
+      },
+      "pu_yield_m2_per_liter": {
+        "value": 11,
+        "description": "Rendimento da Tinta PU (m²/L)."
+      },
+      "pu_price_per_liter": {
+        "value": 210,
+        "description": "Preço da Tinta PU por Litro (R$/L)."
+      },
+      "pu_coats": {
+        "value": 2,
+        "description": "Número de demãos da Tinta PU."
+      },
+      "safety_margin_percent": {
+        "value": 10,
+        "description": "Margem de segurança para compra de insumos (%)."
+      }
+    }
+  },
+  "standard_dimensions": {
+    "largura_vaga_padrao_m": {
+      "value": 2.5,
+      "description": "Largura padrão de uma vaga (m)."
+    },
+    "profundidade_vaga_padrao_m": {
+      "value": 5,
+      "description": "Profundidade padrão de uma vaga (m)."
+    }
+  },
+  "logistica": {
+    "ativo": {
+      "value": 1,
+      "description": "Ativar custo de logística (1 para sim, 0 para não)."
+    },
+    "custo_base_kg": {
+      "value": 2.5,
+      "description": "Custo base da logística por kg."
+    },
+    "coeficiente": {
+      "value": 2,
+      "description": "Coeficiente multiplicador (distância/dificuldade)."
+    }
+  },
+  "montagem": {
+    "ativo": {
+      "value": 1,
+      "description": "Ativar custo de montagem (1 para sim, 0 para não)."
+    },
+    "custo_por_modulo": {
+      "value": 300,
+      "description": "Custo para montar cada módulo."
+    }
+  }
+}
