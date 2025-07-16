@@ -1,18 +1,118 @@
-// VERSÃO COM CÁLCULO DE INSUMOS DE PINTURA E LÓGICA DE PERFIS DINÂMICOS
+// backend/services/quotationService.js
 
 const catalog = require('../../data/catalog.json');
 const blueprints = require('../../data/blueprints.json');
 const baseConfig = require('../../data/config.json');
 
-function decomposeVagas(totalVagas, availableModuleSizes) { if (!availableModuleSizes || availableModuleSizes.length === 0) return null; const sortedSizes = [...availableModuleSizes].sort((a, b) => b - a); let composition = {}; let remainingVagas = totalVagas; for (const size of sortedSizes) { if (remainingVagas <= 0) break; const count = Math.floor(remainingVagas / size); if (count > 0) { composition[size] = count; remainingVagas -= size * count; } } if (remainingVagas > 0) { const smallestSize = sortedSizes[sortedSizes.length - 1]; const fallbackCount = Math.ceil(remainingVagas / smallestSize); composition[smallestSize] = (composition[smallestSize] || 0) + fallbackCount; } return Object.keys(composition).length > 0 ? composition : null; }
-function getComponentListForBlock(block) { const blueprint = blueprints[block.estrutura]; if (!blueprint) return new Map(); let moduleComposition = decomposeVagas(block.vagas, blueprint.available_modules); if (!moduleComposition) return new Map(); const totalComponents = new Map(); let totalModules = 0; for (const [size, count] of Object.entries(moduleComposition)) { totalModules += count; const moduleKey = `modulo_${size}_vagas`; const baseModule = blueprint.base_modules[moduleKey]; if (baseModule && baseModule.components_per_module) { baseModule.components_per_module.forEach(component => { const existing = totalComponents.get(component.partId) || { quantity: 0 }; existing.quantity += component.quantity * count; totalComponents.set(component.partId, existing); }); } } let numPilares = 0; if (blueprint.pillar_rule) { const pillarId = blueprint.base_material === 'ferro' ? 'pilar_ferro_padrao' : 'pilar_eucalipto_padrao'; if (blueprint.pillar_rule === 'N+1') numPilares = totalModules + 1; if (blueprint.pillar_rule === '2*N+2') numPilares = (totalModules * 2) + 2; if (pillarId && numPilares > 0) { const existing = totalComponents.get(pillarId) || { quantity: 0 }; existing.quantity += numPilares; totalComponents.set(pillarId, existing); } } if (blueprint.arm_rule === 'N+1') { const armId = blueprint.base_material === 'ferro' ? 'braco_ferro_padrao' : 'braco_eucalipto_padrao'; const existing = totalComponents.get(armId) || { quantity: 0 }; existing.quantity += totalModules + 1; totalComponents.set(armId, existing); } if (numPilares > 0) { if (blueprint.base_material === 'ferro') { const materialId = 'sapata_fundacao_metalica'; const servicoId = 'servico_instalacao_fundacao'; const existingMaterial = totalComponents.get(materialId) || { quantity: 0 }; const existingServico = totalComponents.get(servicoId) || { quantity: 0 }; existingMaterial.quantity += numPilares; existingServico.quantity += numPilares; totalComponents.set(materialId, existingMaterial); totalComponents.set(servicoId, existingServico); } } const kitComponent = totalComponents.get('kit_fixacao_tela') || { quantity: 0 }; kitComponent.quantity += totalModules * 60; totalComponents.set('kit_fixacao_tela', kitComponent); return totalComponents; }
+/**
+ * Decompõe um número total de vagas na melhor combinação de módulos disponíveis.
+ * @param {number} totalVagas - O número total de vagas a serem construídas.
+ * @param {number[]} availableModuleSizes - Um array com os tamanhos dos módulos disponíveis (ex: [3, 2]).
+ * @returns {object|null} Um objeto com a composição dos módulos ou null se não for possível.
+ */
+function decomposeVagas(totalVagas, availableModuleSizes) {
+    if (!availableModuleSizes || availableModuleSizes.length === 0) return null;
+    const sortedSizes = [...availableModuleSizes].sort((a, b) => b - a);
+    let composition = {};
+    let remainingVagas = totalVagas;
+    for (const size of sortedSizes) {
+        if (remainingVagas <= 0) break;
+        const count = Math.floor(remainingVagas / size);
+        if (count > 0) {
+            composition[size] = count;
+            remainingVagas -= size * count;
+        }
+    }
+    if (remainingVagas > 0) {
+        const smallestSize = sortedSizes[sortedSizes.length - 1];
+        const fallbackCount = Math.ceil(remainingVagas / smallestSize);
+        composition[smallestSize] = (composition[smallestSize] || 0) + fallbackCount;
+    }
+    return Object.keys(composition).length > 0 ? composition : null;
+}
 
+/**
+ * Gera a lista de componentes para um único bloco do projeto.
+ * @param {object} block - O bloco do projeto (ex: { vagas: 10, estrutura: 'Eucalipto_Reto_LL_4P' }).
+ * @returns {Map<string, {quantity: number}>} Um mapa com os IDs dos componentes e suas quantidades.
+ */
+function getComponentListForBlock(block) {
+    const blueprint = blueprints[block.estrutura];
+    if (!blueprint) return new Map();
+
+    const moduleComposition = decomposeVagas(block.vagas, blueprint.available_modules);
+    if (!moduleComposition) return new Map();
+
+    const totalComponents = new Map();
+    let totalModules = 0;
+
+    // 1. Adiciona componentes dos módulos base
+    for (const [size, count] of Object.entries(moduleComposition)) {
+        totalModules += count;
+        const moduleKey = `modulo_${size}_vagas`;
+        const baseModule = blueprint.base_modules[moduleKey];
+        if (baseModule && baseModule.components_per_module) {
+            baseModule.components_per_module.forEach(component => {
+                const existing = totalComponents.get(component.partId) || { quantity: 0 };
+                existing.quantity += component.quantity * count;
+                totalComponents.set(component.partId, existing);
+            });
+        }
+    }
+
+    // 2. Adiciona componentes baseados em regras (pilares, braços, etc.)
+    let numPilares = 0;
+    if (blueprint.pillar_rule) {
+        const pillarId = blueprint.base_material === 'ferro' ? 'pilar_ferro_padrao' : 'pilar_eucalipto_padrao';
+        if (blueprint.pillar_rule === 'N+1') numPilares = totalModules + 1;
+        if (blueprint.pillar_rule === '2*N+2') numPilares = (totalModules * 2) + 2;
+        if (pillarId && numPilares > 0) {
+            const existing = totalComponents.get(pillarId) || { quantity: 0 };
+            existing.quantity += numPilares;
+            totalComponents.set(pillarId, existing);
+        }
+    }
+
+    if (blueprint.arm_rule === 'N+1') {
+        const armId = blueprint.base_material === 'ferro' ? 'braco_ferro_padrao' : 'braco_eucalipto_padrao';
+        const existing = totalComponents.get(armId) || { quantity: 0 };
+        existing.quantity += totalModules + 1;
+        totalComponents.set(armId, existing);
+    }
+
+    // 3. Adiciona fundação (se aplicável)
+    if (numPilares > 0 && blueprint.base_material === 'ferro') {
+        const materialId = 'sapata_fundacao_metalica';
+        const servicoId = 'servico_instalacao_fundacao';
+        totalComponents.set(materialId, { quantity: (totalComponents.get(materialId)?.quantity || 0) + numPilares });
+        totalComponents.set(servicoId, { quantity: (totalComponents.get(servicoId)?.quantity || 0) + numPilares });
+    }
+
+    // 4. Adiciona kits de fixação
+    const kitComponent = totalComponents.get('kit_fixacao_tela') || { quantity: 0 };
+    kitComponent.quantity += totalModules * 60;
+    totalComponents.set('kit_fixacao_tela', kitComponent);
+
+    return totalComponents;
+}
+
+/**
+ * Função principal que gera o orçamento completo.
+ * @param {object[]} projectBlocks - Array de blocos do projeto.
+ * @param {object} overrides - Objeto com parâmetros de simulação para sobrescrever o config.json.
+ * @param {object} profileMapping - Mapeamento de perfis customizados pelo usuário.
+ * @returns {object} O relatório completo do orçamento.
+ */
 function generateQuote(projectBlocks, overrides = {}, profileMapping = {}) {
     const params = {
         bdi_percent: overrides?.financials?.bdi_percent?.value ?? baseConfig.financials.bdi_percent.value,
         tax_percent: overrides?.financials?.tax_percent?.value ?? baseConfig.financials.tax_percent.value,
         valor_aco_kg: overrides?.material_costs?.valor_aco_kg?.value ?? baseConfig.material_costs.valor_aco_kg.value,
         valor_eucalipto_un: overrides?.material_costs?.valor_eucalipto_un?.value ?? baseConfig.material_costs.valor_eucalipto_un.value,
+        valor_braco_eucalipto_un: overrides?.material_costs?.valor_braco_eucalipto_un?.value ?? baseConfig.material_costs.valor_braco_eucalipto_un.value,
+        valor_longarina_eucalipto_un: overrides?.material_costs?.valor_longarina_eucalipto_un?.value ?? baseConfig.material_costs.valor_longarina_eucalipto_un.value,
+        valor_mao_francesa_eucalipto_un: overrides?.material_costs?.valor_mao_francesa_eucalipto_un?.value ?? baseConfig.material_costs.valor_mao_francesa_eucalipto_un.value,
+        valor_separador_eucalipto_un: overrides?.material_costs?.valor_separador_eucalipto_un?.value ?? baseConfig.material_costs.valor_separador_eucalipto_un.value,
         valor_tela_m2: overrides?.material_costs?.valor_tela_m2?.value ?? baseConfig.material_costs.valor_tela_m2.value,
         valor_kit_fixacao_un: overrides?.material_costs?.valor_kit_fixacao_un?.value ?? baseConfig.material_costs.valor_kit_fixacao_un.value,
         mao_de_obra_pintura_m2: overrides?.service_costs?.mao_de_obra_pintura_m2?.value ?? baseConfig.service_costs.mao_de_obra_pintura_m2.value,
@@ -71,7 +171,16 @@ function generateQuote(projectBlocks, overrides = {}, profileMapping = {}) {
         }
         switch (component.category) {
             case 'metal': itemCost = totalWeight * params.valor_aco_kg; costSummary.materiais.metal += itemCost; physicalTotals.total_weight_metal += totalWeight; physicalTotals.total_surface_area_metal += totalSurfaceArea; break;
-            case 'madeira': itemCost = qty * params.valor_eucalipto_un; costSummary.materiais.madeira += itemCost; physicalTotals.total_surface_area_madeira += totalSurfaceArea; break;
+            case 'madeira':
+                if (partId === 'pilar_eucalipto_padrao') itemCost = qty * params.valor_eucalipto_un;
+                else if (partId === 'braco_eucalipto_padrao') itemCost = qty * params.valor_braco_eucalipto_un;
+                else if (partId === 'longarina_eucalipto_5m') itemCost = qty * params.valor_longarina_eucalipto_un;
+                else if (partId === 'mao_francesa_eucalipto') itemCost = qty * params.valor_mao_francesa_eucalipto_un;
+                else if (partId === 'separador_eucalipto_padrao') itemCost = qty * params.valor_separador_eucalipto_un;
+                else itemCost = qty * params.valor_eucalipto_un; // Fallback
+                costSummary.materiais.madeira += itemCost;
+                physicalTotals.total_surface_area_madeira += totalSurfaceArea;
+                break;
             case 'acessorios': itemCost = qty * params.valor_kit_fixacao_un; costSummary.materiais.acessorios += itemCost; break;
             case 'servicos':
                 if (partId === 'servico_instalacao_fundacao') itemCost = qty * params.custo_servico_fundacao_un;

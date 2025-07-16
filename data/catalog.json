@@ -2,21 +2,18 @@
   "perfis_metalicos": {
     "tubo_100x100x3": { "name": "Tubo Quadrado 100x100 x 3.00mm", "weight_kg_per_meter": 8.79, "surface_area_m2_per_meter": 0.40 },
     "tubo_100x100x2": { "name": "Tubo Quadrado 100x100 x 2.00mm", "weight_kg_per_meter": 6.16, "surface_area_m2_per_meter": 0.40 },
-    "tubo_100x100x1.5": { "name": "Tubo Quadrado 100x100 x 2.00mm", "weight_kg_per_meter": 6.16, "surface_area_m2_per_meter": 0.40 },
+    "tubo_100x100x1.5": { "name": "Tubo Quadrado 100x100 x 1.50mm", "weight_kg_per_meter": 4.65, "surface_area_m2_per_meter": 0.40 },
     "tubo_50x30x1.5": { "name": "Tubo Retangular 50x30 x 1.50mm", "weight_kg_per_meter": 1.78, "surface_area_m2_per_meter": 0.16 }
   },
   "materias_primas": {
     "vara_aco_6m_tubo_100x100x3": { "name": "Vara de Aço 100x100x3 (6m)", "profile_id": "tubo_100x100x3", "category": "materia_prima_aco", "length_m": 6.0 },
     "vara_aco_6m_tubo_100x100x2": { "name": "Vara de Aço 100x100x2 (6m)", "profile_id": "tubo_100x100x2", "category": "materia_prima_aco", "length_m": 6.0 },
-    "vara_aco_6m_tubo_100x100x1.5": { "name": "Vara de Aço 100x100x2 (6m)", "profile_id": "tubo_100x100x2", "category": "materia_prima_aco", "length_m": 6.0 },
-    "vara_aco_6m_tubo_50x30x1.5": { "name": "Vara de Aço 50x30x1.5 (6m)", "profile_id": "tubo_50x30x1.5", "category": "materia_prima_aco", "length_m": 6.0 },
-    "vara_aco_6m_tubo_80x40x2": { "name": "Vara de Aço 100x100x2 (6m)", "profile_id": "tubo_100x100x2", "category": "materia_prima_aco", "length_m": 6.0 }
-
+    "vara_aco_6m_tubo_100x100x1.5": { "name": "Vara de Aço 100x100x1.5 (6m)", "profile_id": "tubo_100x100x1.5", "category": "materia_prima_aco", "length_m": 6.0 },
+    "vara_aco_6m_tubo_50x30x1.5": { "name": "Vara de Aço 50x30x1.5 (6m)", "profile_id": "tubo_50x30x1.5", "category": "materia_prima_aco", "length_m": 6.0 }
   },
   "componentes_acabados": {
     "pilar_ferro_padrao": { "name": "Pilar de Ferro", "category": "metal", "unit": "un", "length_m": 3.0, "default_profile_id": "tubo_100x100x3", "manufacturing_recipe": { "raw_material_key_prefix": "vara_aco_6m_" }},
     "braco_ferro_padrao": { "name": "Braço de Ferro", "category": "metal", "unit": "un", "length_m": 5.0, "default_profile_id": "tubo_100x100x2", "manufacturing_recipe": { "raw_material_key_prefix": "vara_aco_6m_" }},
-    "longarina_ferro_2.5m": { "name": "Longarina de Ferro (2.5m)", "category": "metal", "unit": "un", "length_m": 2.5, "default_profile_id": "tubo_100x100x2", "manufacturing_recipe": { "raw_material_key_prefix": "vara_aco_6m_" }},
     "longarina_ferro_5m": { "name": "Longarina de Ferro (5.0m)", "category": "metal", "unit": "un", "length_m": 5.0, "default_profile_id": "tubo_100x100x2", "manufacturing_recipe": { "raw_material_key_prefix": "vara_aco_6m_" }},
     "longarina_ferro_7.5m": { "name": "Longarina de Ferro (7.5m)", "category": "metal", "unit": "un", "length_m": 7.5, "default_profile_id": "tubo_100x100x2", "manufacturing_recipe": { "raw_material_key_prefix": "vara_aco_6m_" }},
     "separador_ferro_padrao": { "name": "Separador de Ferro", "category": "metal", "unit": "un", "length_m": 5.0, "default_profile_id": "tubo_50x30x1.5", "manufacturing_recipe": { "raw_material_key_prefix": "vara_aco_6m_" }},
@@ -25,18 +22,11 @@
   "outros_componentes": {
     "pilar_eucalipto_padrao": { "name": "Pilar de Eucalipto 4P (3m)", "category": "madeira", "unit": "un", "length_m": 3.0, "weight_kg_per_unit": 41, "surface_area_m2_per_unit": 1.32 },
     "braco_eucalipto_padrao": { "name": "Braço de Eucalipto Padrão (5m)", "category": "madeira", "unit": "un", "length_m": 5.0, "weight_kg_per_unit": 68, "surface_area_m2_per_unit": 2.20 },
+    "longarina_eucalipto_5m": { "name": "Longarina de Eucalipto (5m)", "category": "madeira", "unit": "un", "length_m": 5.0, "weight_kg_per_unit": 39, "surface_area_m2_per_unit": 1.5 },
+    "mao_francesa_eucalipto": { "name": "Mão Francesa de Eucalipto", "category": "madeira", "unit": "un", "length_m": 0.7, "weight_kg_per_unit": 5, "surface_area_m2_per_unit": 0.3 },
+    "separador_eucalipto_padrao": { "name": "Separador de Eucalipto", "category": "madeira", "unit": "un", "length_m": 2.5, "weight_kg_per_unit": 15, "surface_area_m2_per_unit": 0.5 },
     "servico_instalacao_fundacao": { "name": "Serviço de Instalação de Fundação", "category": "servicos", "unit": "un" },
     "tela_cobertura": { "name": "Tela de Sombreamento 80%", "category": "cobertura", "unit": "m²", "weight_kg_per_m2": 0.22 },
-    "kit_fixacao_tela": { "name": "Kit Fixação de Tela (Parafuso, Porca, Arruela)", "category": "acessorios", "unit": "un", "weight_kg_per_unit": 0.07 },
-    
-    "longarina_eucalipto_5m": {
-  "name": "Longarina de Eucalipto (5m)",
-  "category": "madeira",
-  "unit": "un",
-  "length_m": 5.0,
-  "weight_kg_per_unit": 39,
-  "surface_area_m2_per_unit": 1.5
-}
-
+    "kit_fixacao_tela": { "name": "Kit Fixação de Tela (Parafuso, Porca, Arruela)", "category": "acessorios", "unit": "un", "weight_kg_per_unit": 0.07 }
   }
 }

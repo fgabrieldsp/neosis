@@ -21,3 +21,8 @@
 - **Rusticidade:** Facilita transporte, manuseio e manutenção em áreas rurais e urbanas.
 - **Alternativa sustentável:** Melhor opção em relação às madeiras nobres.
 - **Qualidade comprovada:** Índices de retenção de CCA e umidade final atestados por testes do Instituto de Pesquisas Tecnológicas de São Paulo (IPT).
+- **peso especifico**: ρ = de 600 a 750 kg/m³  
+
+$$ tarefas
+
+revisar contagem de mao francesa
